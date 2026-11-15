@@ -103,4 +103,4 @@ print(f"Lookback put (MC):      {lookback_mc:.4f}")
 
 ## BACKGROUND
 
-The lookback option formulas come from my Bachelor's thesis at UAB (2024): _Valoració d'opcions pel màxim i pel mínim del preu del subjacent_. The Heston model implementation follows the original paper (Heston, 1993). The thesis PDF (written in Catalan) is available in the repository.
+The lookback option formulas come from my Bachelor's thesis at UAB (2024): _Valoració d'opcions pel màxim i pel mínim del preu del subjacent_. The Heston model implementation follows the original paper (Heston, 1993). The [thesis PDF](docs/TFG_Lookback_Options_BallesJr.pdf) (written in Catalan) is available in the repository.
