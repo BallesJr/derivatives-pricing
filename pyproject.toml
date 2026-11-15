@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "derivatives-pricing"
+version = "1.0.0"
+description = "Options pricing library: Black-Scholes, Heston, lookback options and implied volatility surfaces."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "numba",
+    "yfinance",
+]
+
+[tool.setuptools]
+packages = ["derivatives_pricing"]

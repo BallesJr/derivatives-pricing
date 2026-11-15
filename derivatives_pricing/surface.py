@@ -4,8 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import griddata
 
-from heston import analytical_call_price
-from black_scholes import implied_volatility
+from .heston import analytical_call_price
+from .black_scholes import implied_volatility
 
 # ---Surface computation---
 # Compute implied volatility surface under the Heston model

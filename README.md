@@ -16,11 +16,51 @@ This project brings together all my work on options pricing into a single, struc
 
 ## PROJECT STRUCTURE
 
+```
+derivatives-pricing/
+├── derivatives_pricing/        the installable package
+│   ├── __init__.py
+│   ├── black_scholes.py
+│   ├── heston.py
+│   ├── lookback.py
+│   ├── surface.py
+│   └── utils.py
+├── docs/                       thesis PDF
+├── pyproject.toml              package metadata and dependencies
+└── requirements.txt            pinned versions used for testing
+```
+
 - `black_scholes.py`: Analytical BS pricing, full Greeks, and implied volatility.
 - `heston.py`: Heston model — Monte Carlo simulation, analytical pricing, and Greeks via finite differences.
 - `lookback.py`: Floating-strike lookback options — closed-form and Monte Carlo.
 - `surface.py`: Implied volatility surface from Heston prices, with 3D visualisation.
 - `utils.py`: Sharpe ratio, drawdown, equity curve, and market data helpers.
+
+---
+
+## INSTALLATION
+
+Tested with Python 3.12. From the root of the repository:
+
+Windows (PowerShell):
+
+```powershell
+py -3.12 -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt   # optional: the exact versions used for testing
+pip install -e .
+```
+
+Linux / macOS:
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt   # optional: the exact versions used for testing
+pip install -e .
+```
+
+`pip install -e .` installs the package in editable mode together with its dependencies (numpy, scipy, matplotlib, numba, yfinance), so `import derivatives_pricing` works from any directory.
 
 ---
 
@@ -49,12 +89,6 @@ price = lookback.analytical_put(S=100, S_max=100, r=0.05, sigma=0.20, T=1.0)
 price = lookback.mc_price(S0=100, r=0.05, sigma=0.20, T=1.0,
 option="put", simulations=100_000)
 ```
-
----
-
-## REQUIREMENTS
-
-`pip install numpy scipy matplotlib numba yfinance`
 
 ---
 
