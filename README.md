@@ -73,21 +73,30 @@ from derivatives_pricing import black_scholes as bs
 from derivatives_pricing import heston
 from derivatives_pricing import lookback
 
-# Black-Scholes Greeks
-g = bs.greeks(S=100, K=100, T=1.0, r=0.05, sigma=0.20, option="call")
+# Black-Scholes call price and Greeks
+greeks = bs.greeks(S=100, K=100, T=1.0, r=0.05, sigma=0.20, option="call")
+bs_price = greeks["price"]
 
-# Heston analytical price
-price = heston.analytical_call_price(
+# Heston analytical call price
+heston_price = heston.analytical_call_price(
     S0=100, v0=0.04, kappa=2.0, theta=0.04,
     xi=0.3, rho=-0.7, r=0.05, T=1.0, K=100
 )
 
-# Lookback put (closed-form)
-price = lookback.analytical_put(S=100, S_max=100, r=0.05, sigma=0.20, T=1.0)
+# Lookback put (closed-form, continuous monitoring)
+lookback_analytic = lookback.analytical_put(S=100, S_max=100, r=0.05, sigma=0.20, T=1.0)
 
-# Lookback put — Monte Carlo
-price = lookback.mc_price(S0=100, r=0.05, sigma=0.20, T=1.0,
-option="put", simulations=100_000)
+# Lookback put — Monte Carlo (daily steps, fixed seed for reproducibility).
+# The maximum is only observed once per step, so the estimate sits below the
+# continuous closed form; more steps narrow the gap but take longer.
+lookback_mc = lookback.mc_price(S0=100, r=0.05, sigma=0.20, T=1.0, option="put",
+                                steps=252, simulations=20_000, seed=42)
+
+print(f"Black-Scholes call:     {bs_price:.4f}")
+print("Greeks:                ", {k: round(float(v), 4) for k, v in greeks.items()})
+print(f"Heston call:            {heston_price:.4f}")
+print(f"Lookback put (closed):  {lookback_analytic:.4f}")
+print(f"Lookback put (MC):      {lookback_mc:.4f}")
 ```
 
 ---
